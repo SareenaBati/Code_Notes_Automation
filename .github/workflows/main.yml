@@ -1,11 +1,13 @@
 name: My actions have consequence
+
 on: [push]
 
 jobs:
   ega:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4  # Check out the repository
+      - name: Check out the repository
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -21,19 +23,15 @@ jobs:
       - name: Set up virtual display (Xvfb)
         run: |
           export DISPLAY=:99
-          chromedriver --url-base=/wd/hub &
           sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
+          sleep 3  # Give Xvfb time to start
 
-      - name: Install Selenium
-        run: pip install selenium
-
-      - name: Install pytest
-        run: pip install pytest
+      - name: Install dependencies
+        run: |
+          pip install selenium
+          pip install pytest
 
       - name: Run tests
-        run: python run_test.py
-
-
-
-      - name: Echo GitHub Event Trigger
-        run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
+        run: |
+          export DISPLAY=:99
+          python run_test.py
