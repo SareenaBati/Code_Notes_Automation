@@ -35,4 +35,4 @@ jobs:
       - name: Run your test script
         run: |
           export DISPLAY=:99
-          python Code_Notes_Automation/run_test.py
+          python run_test.py
