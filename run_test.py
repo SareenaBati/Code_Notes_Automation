@@ -3,15 +3,24 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service as ChromeService
 
-from Code_Notes_Automation.pages.login_page import LoginPage
-from Code_Notes_Automation.pages.main_page import MainPage
-from Code_Notes_Automation.pages.sign_up_page import SignUp
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+
+from pages.login_page import LoginPage
+from pages.main_page import MainPage
+from pages.sign_up_page import SignUp
+
+
+from selenium import webdriver
+
+
 
 
 @pytest.fixture()
 def driver():
-    service = ChromeService(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service)
+    driver=webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
     driver.maximize_window()
     driver.implicitly_wait(10)  # Uses implicit wait globally
     yield driver
