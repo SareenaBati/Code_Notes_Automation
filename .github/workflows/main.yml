@@ -1,13 +1,13 @@
-name: My actions have consequence
+name: Run Selenium Script
 
 on: [push]
 
 jobs:
-  ega:
+  run-tests:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out the repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -20,24 +20,19 @@ jobs:
         with:
           chrome-version: latest
 
-      - name: Set up ChromeDriver
-        uses: nanasess/setup-chromedriver@v2
-        with:
-          chromedriver-version: 'latest'
-
       - name: Set up virtual display (Xvfb)
         run: |
           export DISPLAY=:99
           sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
-          sleep 3  # Wait for virtual display to be ready
+          sleep 3
 
       - name: Install dependencies
         run: |
           pip install selenium
-          pip install pytest
           pip install webdriver-manager
+          pip install pytest
 
-      - name: Run tests
+      - name: Run your test script
         run: |
           export DISPLAY=:99
-          pythonProject/Code_Notes_Automation/run_test.py
+          python Code_Notes_Automation/run_test.py
