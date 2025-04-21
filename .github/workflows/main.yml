@@ -1,24 +1,39 @@
 name: My actions have consequence
 on: [push]
+
 jobs:
-  code-notes-selenium-test-automation:
+  ega:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v4  # Check out the repository
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      - uses: nanasess/setup-chromedriver@v2
+
+      - name: Set up ChromeDriver
+        uses: nanasess/setup-chromedriver@v2
         with:
-          # Optional: do not specify to match Chrome's version
           chromedriver-version: '135.0.7049.84'
-          # Optional: if your chrome binary name is different
           chromeapp: chrome
-      - run: |
+
+      - name: Set up virtual display (Xvfb)
+        run: |
           export DISPLAY=:99
           chromedriver --url-base=/wd/hub &
-          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
-      - name: install selenium
+          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
+
+      - name: Install Selenium
         run: pip install selenium
-      - run: python  run_test.py
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+
+      - name: Install pytest
+        run: pip install pytest
+
+      - name: Run tests
+        run: python run_test.py
+
+
+
+      - name: Echo GitHub Event Trigger
+        run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
