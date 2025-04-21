@@ -13,7 +13,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'  # Stable Python version
+          python-version: '3.11'
 
       - name: Upgrade pip and Install dependencies
         run: |
@@ -36,7 +36,7 @@ jobs:
           sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
 
       - name: Run tests
-        run: python pages/run_test.py  # Correct path to your test file
+        run: python run_test.py  # ✅ this matches your folder structure
 
       - name: Echo GitHub Event Trigger
         run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
