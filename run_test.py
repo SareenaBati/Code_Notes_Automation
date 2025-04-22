@@ -77,25 +77,24 @@ def test_create_new_snippet(login,driver):
     create_new_snippet = CreateNewSnippet(driver)
 
     create_new_snippet.click_new_code_snippet()
-    # create_new_snippet.fill_snippet_form(
-    #     title="Test Snippet",
-    #     language="Python",
-    #     description="This is a test description for the snippet.",
-    #     code="print('Hello, World!')"
-    # )
-    # create_new_snippet.select_private()
-    # time.sleep(1)
-    # create_new_snippet.select_first_tag()
-    # time.sleep(1)
-    # create_new_snippet.submit_form()
-    # time.sleep(1)
+    create_new_snippet.fill_snippet_form(
+        title="Test Snippet",
+        language="Python",
+        description="This is a test description for the snippet.",
+        code="print('Hello, World!')"
+    )
+    create_new_snippet.select_private()
+    time.sleep(1)
+    create_new_snippet.select_first_tag()
+    time.sleep(1)
+    create_new_snippet.submit_form()
+    time.sleep(1)
 
 
 def test_code_snippet(login,driver):
     code_snippet= CodeSnippet(driver)
-    time.sleep(5)
     code_snippet.click_third_code_snippet()
-    time.sleep(10)
+
 
 
 
