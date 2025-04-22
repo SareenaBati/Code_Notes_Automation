@@ -35,5 +35,5 @@ jobs:
       - name: Add current directory to PYTHONPATH
         run: echo "PYTHONPATH=${{ github.workspace }}" >> $GITHUB_ENV
 
-      - name: Run only login tests
-        run: pytest -m login  # This will only run tests marked with `@pytest.mark.login`
+      - name: Run tests
+        run: python run_test.py
