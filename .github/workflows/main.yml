@@ -36,4 +36,4 @@ jobs:
         run: echo "PYTHONPATH=${{ github.workspace }}" >> $GITHUB_ENV
 
       - name: Run tests
-        run: python run_test.py -k test_signup_with_valid_credentials
+        run: python run_test.py -k test_signup_with_valid_credentials -v
