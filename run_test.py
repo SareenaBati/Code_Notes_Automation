@@ -5,6 +5,7 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
 import time
 
 import sys
@@ -18,11 +19,16 @@ from pages.create_new_snippet import CreateNewSnippet
 from pages.tags import Tags
 
 @pytest.fixture(scope="module")
-
 def driver():
-    driver=webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-    driver.maximize_window()
-    driver.implicitly_wait(10)  # Uses implicit wait globally
+    options = Options()
+    options.add_argument('--headless=new')  # Use new headless mode for better compatibility
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--disable-gpu')
+    options.add_argument('--window-size=1920,1080')  # Instead of maximize_window()
+
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
+    driver.implicitly_wait(10)
     yield driver
     driver.quit()
 
