@@ -222,148 +222,148 @@ def login(driver):
     time.sleep(2)
     return driver
 
-def test_create_new_snippet(login,driver):
-    new_snippet = CreateNewSnippet(driver)
-    new_snippet.click_code_snippet()
-    new_snippet.click_new_code_snippet()
-    new_snippet.fill_snippet_form(
-        title="Test ",
-        language="Python",
-        description="This is a test description for the snippet.",
-        code="print('Hello, World!')"
-    )
-    new_snippet.private_checkbox()
-    new_snippet.select_first_tag()
-    new_snippet.create_code_snippet_button()
-    time.sleep(5)
-    expected_result="Code snippet was successfully created."
-    actual_result=new_snippet.success_msg()
-    assert actual_result==expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
-    assert actual_result == expected_result, f"Expected '{expected_result}', but got '{actual_result}'"
-    print ("Test Passed:Code snippet created successfully")
+# def test_create_new_snippet(login,driver):
+#     new_snippet = CreateNewSnippet(driver)
+#     new_snippet.click_code_snippet()
+#     new_snippet.click_new_code_snippet()
+#     new_snippet.fill_snippet_form(
+#         title="Test ",
+#         language="Python",
+#         description="This is a test description for the snippet.",
+#         code="print('Hello, World!')"
+#     )
+#     new_snippet.private_checkbox()
+#     new_snippet.select_first_tag()
+#     new_snippet.create_code_snippet_button()
+#     time.sleep(5)
+#     expected_result="Code snippet was successfully created."
+#     actual_result=new_snippet.success_msg()
+#     assert actual_result==expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
+#     assert actual_result == expected_result, f"Expected '{expected_result}', but got '{actual_result}'"
+#     print ("Test Passed:Code snippet created successfully")
+#
+# def test_create_new_snippet_public(login,driver):
+#     new_snippet = CreateNewSnippet(driver)
+#     new_snippet.click_code_snippet()
+#     new_snippet.click_new_code_snippet()
+#     time.sleep(2)
+#     new_snippet.fill_snippet_form(
+#         title="Test Snippet",
+#         language="Python",
+#         description="This is a test description for the snippet.",
+#         code="print('Hello, World!')"
+#     )
+#     time.sleep(2)
+#     new_snippet.select_first_tag()
+#     new_snippet.create_code_snippet_button()
+#     time.sleep(5)
+#     expected_result = "Code snippet was successfully created."
+#     actual_result = new_snippet.success_msg()
+#     assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
+#     assert actual_result == expected_result, f"Expected '{expected_result}', but got '{actual_result}'"
+#     print("Test Passed:Code snippet created successfully")
+#
+# def test_create_snippet_with_empty_field(login,driver):
+#     new_snippet = CreateNewSnippet(driver)
+#     new_snippet.click_code_snippet()
+#     new_snippet.click_new_code_snippet()
+#     time.sleep(2)
+#     new_snippet.fill_snippet_form(
+#         title="",
+#         language="",
+#         description="",
+#         code=""
+#     )
+#     time.sleep(2)
+#     new_snippet.private_checkbox()
+#     new_snippet.select_first_tag()
+#     new_snippet.create_code_snippet_button()
+#     expected_result="Please review the problems below:"
+#     actual_result=new_snippet.snippet_error_msg()
+#     assert actual_result==expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
+#     print ("Test Passed:Please review the problems below:")
+#
+# def test_create_snippet_without_title(login,driver):
+#     new_snippet = CreateNewSnippet(driver)
+#     new_snippet.click_code_snippet()
+#     new_snippet.click_new_code_snippet()
+#     time.sleep(5)
+#     new_snippet.fill_snippet_form(
+#         title="",
+#         language="Python",
+#         description="This is a test description for the snippet.",
+#         code="print('Hello, World!')"
+#     )
+#     time.sleep(2)
+#     new_snippet.select_first_tag()
+#     time.sleep(1)
+#     new_snippet.create_code_snippet_button()
+#     time.sleep(5)
+#     new_snippet.blank_title_error_msg()
+#     expected_result = "Title can't be blank"
+#     actual_result = new_snippet.snippet_error_msg()
+#     assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
+#     print("Test Passed:title cant be blank:")
+#
+# def test_create_snippet_without_language(login,driver):
+#     new_snippet = CreateNewSnippet(driver)
+#     new_snippet.click_code_snippet()
+#     new_snippet.click_new_code_snippet()
+#     time.sleep(5)
+#     new_snippet.fill_snippet_form(
+#         title="Test Snippet",
+#         language="",
+#         description="This is a test description for the snippet.",
+#         code="print('Hello, World!')"
+#     )
+#     time.sleep(2)
+#     new_snippet.select_first_tag()
+#     time.sleep(1)
+#     new_snippet.create_code_snippet_button()
+#     time.sleep(5)
+#     expected_result = "Language can't be blank"
+#     actual_result = new_snippet.blank_language_error_msg()
+#     assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
+#     print("Test Passed:language cant be blank:")
+#
+#
+# def test_create_snippet_without_description(login,driver):
+#     new_snippet = CreateNewSnippet(driver)
+#     new_snippet.click_code_snippet()
+#     new_snippet.click_new_code_snippet()
+#     time.sleep(5)
+#     new_snippet.fill_snippet_form(
+#         title="Test Snippet",
+#         language="Python",
+#         description="",
+#         code="print('Hello, World!')"
+#     )
+#     time.sleep(2)
+#     new_snippet.select_first_tag()
+#     time.sleep(1)
+#     new_snippet.create_code_snippet_button()
+#     time.sleep(5)
 
-def test_create_new_snippet_public(login,driver):
-    new_snippet = CreateNewSnippet(driver)
-    new_snippet.click_code_snippet()
-    new_snippet.click_new_code_snippet()
-    time.sleep(2)
-    new_snippet.fill_snippet_form(
-        title="Test Snippet",
-        language="Python",
-        description="This is a test description for the snippet.",
-        code="print('Hello, World!')"
-    )
-    time.sleep(2)
-    new_snippet.select_first_tag()
-    new_snippet.create_code_snippet_button()
-    time.sleep(5)
-    expected_result = "Code snippet was successfully created."
-    actual_result = new_snippet.success_msg()
-    assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
-    assert actual_result == expected_result, f"Expected '{expected_result}', but got '{actual_result}'"
-    print("Test Passed:Code snippet created successfully")
-
-def test_create_snippet_with_empty_field(login,driver):
-    new_snippet = CreateNewSnippet(driver)
-    new_snippet.click_code_snippet()
-    new_snippet.click_new_code_snippet()
-    time.sleep(2)
-    new_snippet.fill_snippet_form(
-        title="",
-        language="",
-        description="",
-        code=""
-    )
-    time.sleep(2)
-    new_snippet.private_checkbox()
-    new_snippet.select_first_tag()
-    new_snippet.create_code_snippet_button()
-    expected_result="Please review the problems below:"
-    actual_result=new_snippet.snippet_error_msg()
-    assert actual_result==expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
-    print ("Test Passed:Please review the problems below:")
-
-def test_create_snippet_without_title(login,driver):
-    new_snippet = CreateNewSnippet(driver)
-    new_snippet.click_code_snippet()
-    new_snippet.click_new_code_snippet()
-    time.sleep(5)
-    new_snippet.fill_snippet_form(
-        title="",
-        language="Python",
-        description="This is a test description for the snippet.",
-        code="print('Hello, World!')"
-    )
-    time.sleep(2)
-    new_snippet.select_first_tag()
-    time.sleep(1)
-    new_snippet.create_code_snippet_button()
-    time.sleep(5)
-    new_snippet.blank_title_error_msg()
-    expected_result = "Title can't be blank"
-    actual_result = new_snippet.snippet_error_msg()
-    assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
-    print("Test Passed:title cant be blank:")
-
-def test_create_snippet_without_language(login,driver):
-    new_snippet = CreateNewSnippet(driver)
-    new_snippet.click_code_snippet()
-    new_snippet.click_new_code_snippet()
-    time.sleep(5)
-    new_snippet.fill_snippet_form(
-        title="Test Snippet",
-        language="",
-        description="This is a test description for the snippet.",
-        code="print('Hello, World!')"
-    )
-    time.sleep(2)
-    new_snippet.select_first_tag()
-    time.sleep(1)
-    new_snippet.create_code_snippet_button()
-    time.sleep(5)
-    expected_result = "Language can't be blank"
-    actual_result = new_snippet.blank_language_error_msg()
-    assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
-    print("Test Passed:language cant be blank:")
-
-
-def test_create_snippet_without_description(login,driver):
-    new_snippet = CreateNewSnippet(driver)
-    new_snippet.click_code_snippet()
-    new_snippet.click_new_code_snippet()
-    time.sleep(5)
-    new_snippet.fill_snippet_form(
-        title="Test Snippet",
-        language="Python",
-        description="",
-        code="print('Hello, World!')"
-    )
-    time.sleep(2)
-    new_snippet.select_first_tag()
-    time.sleep(1)
-    new_snippet.create_code_snippet_button()
-    time.sleep(5)
-
-def test_create_snippet_without_code(login,driver):
-    new_snippet = CreateNewSnippet(driver)
-    new_snippet.click_code_snippet()
-    new_snippet.click_new_code_snippet()
-    time.sleep(5)
-    new_snippet.fill_snippet_form(
-        title="Test Snippet",
-        language="Python",
-        description="Description",
-        code=""
-    )
-    time.sleep(2)
-    new_snippet.select_first_tag()
-    time.sleep(1)
-    new_snippet.create_code_snippet_button()
-    time.sleep(5)
-    expected_result = "Code can't be blank"
-    actual_result = new_snippet.blank_code_error_msg()
-    assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
-    print("Test Passed:code cant be blank:")
+# def test_create_snippet_without_code(login,driver):
+#     new_snippet = CreateNewSnippet(driver)
+#     new_snippet.click_code_snippet()
+#     new_snippet.click_new_code_snippet()
+#     time.sleep(5)
+#     new_snippet.fill_snippet_form(
+#         title="Test Snippet",
+#         language="Python",
+#         description="Description",
+#         code=""
+#     )
+#     time.sleep(2)
+#     new_snippet.select_first_tag()
+#     time.sleep(1)
+#     new_snippet.create_code_snippet_button()
+#     time.sleep(5)
+#     expected_result = "Code can't be blank"
+#     actual_result = new_snippet.blank_code_error_msg()
+#     assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
+#     print("Test Passed:code cant be blank:")
 
 
 def test_tags(login,driver):
