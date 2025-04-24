@@ -13,7 +13,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'  # Make sure this matches your intended version
+          python-version: '3.11'
 
       - name: Set up Chrome
         uses: browser-actions/setup-chrome@v1
@@ -36,5 +36,4 @@ jobs:
         run: echo "PYTHONPATH=${{ github.workspace }}" >> $GITHUB_ENV
 
       - name: Run tests
-        run: python run_test.py
-
+        run: pytest
