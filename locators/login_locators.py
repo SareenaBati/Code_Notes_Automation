@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 
 # Login page locators
 class LoginLocator:
+    LOGIN=(By.XPATH,'//a[@href="/users/sign_in"]')
     EMAIL_INPUT = (By.XPATH, "//input[@id='user_email']")
     PASSWORD_INPUT = (By.XPATH, "//input[@id='user_password']")
     REMEMBER_ME_CHECKBOX = (By.XPATH, "//input[@id='user_remember_me']")

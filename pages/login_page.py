@@ -14,6 +14,13 @@ class LoginPage:
     def open_login_page(self, url):
         self.driver.get(url)
 
+    def login(self, should_check=True):
+        login= self.wait.until(EC.presence_of_element_located(LoginLocator.LOGIN))
+        is_selected = self.driver.execute_script("return arguments[0].checked;",login)
+        if is_selected != should_check:
+            self.driver.execute_script('arguments[0].click();', login)
+
+
     def enter_email(self, email):
         email_input = WebDriverWait(self.driver, 10).until(
             EC.presence_of_element_located(LoginLocator.EMAIL_INPUT)
@@ -70,7 +77,8 @@ class LoginPage:
         text = self.driver.execute_script("return arguments[0].textContent", reset_msg)
         return text
 
-    def click_logout_button(self):
-        reset_msg = self.wait.until(EC.presence_of_element_located(LoginLocator.LOGOUT_BUTTON))
-        text = self.driver.execute_script("return arguments[0].textContent", reset_msg)
-        return text
+    def logout_button(self, should_check=True):
+        logout = self.wait.until(EC.presence_of_element_located(LoginLocator.LOGOUT_BUTTON))
+        is_selected = self.driver.execute_script("return arguments[0].checked;", logout)
+        if is_selected != should_check:
+            self.driver.execute_script('arguments[0].click();', logout)
