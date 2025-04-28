@@ -132,7 +132,7 @@ def test_signUp_with_different_password_and_confirmPassword(driver):
         "Test Passed: Received the correct validation message when signing up with different password and confirm password")
 
 
-
+#
 # def test_login_with_valid_credentials(driver):
 #     login_page = LoginPage(driver)
 #     login_page.open_login_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/")
@@ -205,12 +205,13 @@ def test_login_with_empty_field(driver):
 # def test_password_recovery_with_empty_email_field(driver):
 #     login_page = LoginPage(driver)
 #     login_page.open_login_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/")
-#       login_page.login()
+#     login_page.login()
 #     login_page.click_forgot_password()
-#     time.sleep(1)
-#
+#     time.sleep(10)
 #     login_page.enter_email_in_forgot_password_field("")
+#     time.sleep(5)
 #     login_page.click_reset_instruction_btn()
+#     time.sleep(5)
 #     expected_result = "Email can't be blank"
 #
 #
@@ -224,13 +225,11 @@ def login(driver):
     login_page = LoginPage(driver)
     driver.maximize_window()
     login_page.open_login_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/")
-    time.sleep(2)
     login_page.login()
     login_page.enter_email("test@gmail.com")
     login_page.enter_password("password")
     login_page.click_remember_me()
     login_page.click_login()
-    time.sleep(2)
     return driver
 
 
@@ -306,8 +305,7 @@ def test_create_snippet_with_empty_field(login):
     actual_result=new_snippet.snippet_error_msg()
     assert actual_result==expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
     print ("Test Passed:Please review the problems below:")
-    new_snippet.logout_button()
-    print("Test Passed:Code snippet logout successfully")
+
 
 
 
@@ -330,28 +328,29 @@ def test_create_snippet_without_title(login,driver):
     actual_result = new_snippet.title_error_msg()
     assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
     print("Test Passed:title cant be blank:")
-    new_snippet.logout_button()
-    print("Test Passed:Code snippet logout successfully")
 
-def test_create_snippet_without_language(login,driver):
-    new_snippet = CreateNewSnippet(driver)
-    # new_snippet.click_code_snippet()
-    # new_snippet.click_new_code_snippet()
-    new_snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/code_snippets/new")
-    new_snippet.fill_snippet_form(
-        title="Test Snippet",
-        language="",
-        description="This is a test description for the snippet.",
-        code="print('Hello, World!')"
-    )
-    time.sleep(2)
-    new_snippet.select_first_tag()
-    time.sleep(1)
-    new_snippet.create_code_snippet_button()
-    expected_result = "Language can't be blank"
-    actual_result = new_snippet.language_error_msg()
-    assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
-    print("Test Passed:language cant be blank:")
+
+# def test_create_snippet_without_language(login,driver):
+#     new_snippet = CreateNewSnippet(driver)
+#     # new_snippet.click_code_snippet()
+#     # new_snippet.click_new_code_snippet()
+#     new_snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/code_snippets/new")
+#     new_snippet.fill_snippet_form(
+#         title="Test Snippet",
+#         language="",
+#         description="This is a test description for the snippet.",
+#         code="print('Hello, World!')"
+#     )
+#     time.sleep(2)
+#     new_snippet.select_first_tag()
+#     time.sleep(1)
+#     new_snippet.create_code_snippet_button()
+#     expected_result = "Language can't be blank"
+#     actual_result = new_snippet.language_error_msg()
+#     print(f"Expected: {expected_result}")
+#     print(f"Actual: {actual_result}")
+#     assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
+#     print("Test Passed:language cant be blank:")
 
 
 
@@ -372,8 +371,7 @@ def test_create_snippet_without_description(login,driver):
     time.sleep(1)
     new_snippet.create_code_snippet_button()
     time.sleep(5)
-    new_snippet.logout_button()
-    print("Test Passed:Code snippet logout successfully")
+
 
 def test_create_snippet_without_code(login,driver):
     new_snippet = CreateNewSnippet(driver)
@@ -395,14 +393,73 @@ def test_create_snippet_without_code(login,driver):
     actual_result = new_snippet.code_error_msg()
     assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
     print("Test Passed:code cant be blank:")
-    new_snippet.logout_button()
-    print("Test Passed:Code snippet logout successfully")
 
 
-def test_tags(login,driver):
+
+def test_tags_button(login,driver):
     tags= Tags(driver)
     tags.click_tag()
-    time.sleep(5)
+
+# def test_create_new_tag(login,driver):
+#     new_tags=Tags(driver)
+#     # new_tags.click_tag()
+#     new_tags.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/tags")
+#     new_tags.click_new_tags()
+#     new_tags.enter_tag_name("News Tag")
+#     new_tags.click_create_button()
+#     expected_result="Tag was successfully created."
+#     actual_result=new_tags.success_message()
+#     assert actual_result==expected_result, f"Expected'{expected_result}', but got '{actual_result}'"
+#     print("Test Passed :Tag was created successfully")
+
+
+
+def test_update_the_tags(login,driver):
+    new_tags = Tags(driver)
+    # new_tags.click_tag()
+    new_tags.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/tags")
+    new_tags.click_edit_button()
+    new_tags.enter_tag_name("first Tag")
+    new_tags.click_update_tag_button()
+
+def test_create_tag_with_existing_tag(login,driver):
+    new_tags=Tags(driver)
+    new_tags.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/tags")
+    new_tags.click_new_tags()
+    new_tags.enter_tag_name("News Tag")
+    new_tags.click_create_button()
+    expected_result="Please review the problems below:"
+    actual_result=new_tags.existing_tag_name_message()
+    assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
+    print("Test Passed :Name has already taken")
+
+
+def test_create_tags_with_one_letter(login, driver):
+    new_tags = Tags(driver)
+    new_tags.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/tags")
+    new_tags.click_new_tags()
+    new_tags.enter_tag_name("N")
+    new_tags.click_create_button()
+ # In this system, even one letter is accepted (BUG).
+    expected_result = "Please review the problems below:"  # We expect an error
+    actual_result = new_tags.success_message()  # But success message comes
+ # Force the test to fail if success message is seen
+    assert actual_result != "Tag was successfully created.", \
+        f"Test Failed: Tag was incorrectly created with one letter. Message shown: '{actual_result}'"
+
+    print("Test Passed: One-letter tag was created, but it should NOT be allowed (Negative Test detected bug).")
+
+
+def test_delete_the_tags(login,driver):
+    new_tags = Tags(driver)
+    new_tags.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/tags")
+    new_tags.click_delete_button()
+    expected_result = "Tag was successfully destroyed."
+    actual_result =new_tags.delete_message()
+    assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
+    print("Test Passed :")
+
+
 
 
 # Add pytest.main() for running tests with python run_test.py

@@ -64,8 +64,8 @@ class LoginPage:
         self.driver.execute_script("arguments[0].value = arguments[1];", send_email, email)
 
     def click_reset_instruction_btn(self):
-        forgot_password = self.wait.until(EC.presence_of_element_located(LoginLocator.RESET_INSTRUCTION))
-        self.driver.execute_script('arguments[0].click()', forgot_password)
+        forgot_password = self.wait.until(EC.element_to_be_clickable(LoginLocator.RESET_INSTRUCTION))
+        self.driver.execute_script('arguments[0].click();', forgot_password)
 
     def get_reset_password_validation_error_msg(self):
         reset_validation = self.wait.until(EC.presence_of_element_located(LoginLocator.RESET_VALIDATION))

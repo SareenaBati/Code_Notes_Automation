@@ -89,8 +89,8 @@ class CreateNewSnippet:
         return text
 
     def language_error_msg(self):
-        language_error_msg = self.wait.until(EC.presence_of_element_located(CreateNewSnippetLocators.LANGUAGE_ERROR_MESSAGE))
-        text = self.driver.execute_script("return arguments[0].textContent", language_error_msg)
+        language_error = self.wait.until(EC.presence_of_element_located(CreateNewSnippetLocators.LANGUAGE_ERROR_MESSAGE))
+        text = self.driver.execute_script("return arguments[0].textContent", language_error)
         return text
 
 
