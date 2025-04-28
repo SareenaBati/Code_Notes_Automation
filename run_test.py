@@ -202,21 +202,21 @@ def test_login_with_empty_field(driver):
 
 
 
-# # def test_password_recovery_with_empty_email_field(driver):
-# #     login_page = LoginPage(driver)
-# #     login_page.open_login_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/")
+# def test_password_recovery_with_empty_email_field(driver):
+#     login_page = LoginPage(driver)
+#     login_page.open_login_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/")
 #       login_page.login()
-# #     login_page.click_forgot_password()
-# #     time.sleep(1)
-# #
-# #     login_page.enter_email_in_forgot_password_field("")
-# #     login_page.click_reset_instruction_btn()
-# #     expected_result = "Email can't be blank"
-# #
-# #
-# #     actual_result = login_page.get_reset_password_validation_error_msg()
-# #     assert actual_result == expected_result, f"Expected '{expected_result}', but got '{actual_result}'"
-# #     print("Test Passed: Password reset with empty email generate correct validation error message.")
+#     login_page.click_forgot_password()
+#     time.sleep(1)
+#
+#     login_page.enter_email_in_forgot_password_field("")
+#     login_page.click_reset_instruction_btn()
+#     expected_result = "Email can't be blank"
+#
+#
+#     actual_result = login_page.get_reset_password_validation_error_msg()
+#     assert actual_result == expected_result, f"Expected '{expected_result}', but got '{actual_result}'"
+#     print("Test Passed: Password reset with empty email generate correct validation error message.")
 
 
 @pytest.fixture(scope="module")
@@ -224,6 +224,7 @@ def login(driver):
     login_page = LoginPage(driver)
     driver.maximize_window()
     login_page.open_login_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/")
+    time.sleep(2)
     login_page.login()
     login_page.enter_email("test@gmail.com")
     login_page.enter_password("password")
@@ -232,58 +233,65 @@ def login(driver):
     time.sleep(2)
     return driver
 
-# def test_create_new_snippet(login,driver):
-#     new_snippet = CreateNewSnippet(driver)
-#     new_snippet.click_code_snippet()
-#     new_snippet.click_new_code_snippet()
-#     new_snippet.fill_snippet_form(
-#         title="Test ",
-#         language="Python",
-#         description="This is a test description for the snippet.",
-#         code="print('Hello, World!')"
-#     )
-#     new_snippet.private_checkbox()
-#     new_snippet.select_first_tag()
-#     new_snippet.create_code_snippet_button()
-#     time.sleep(2)
-#
-#     expected_result="Code snippet was successfully created."
-#     actual_result=new_snippet.success_msg()
-#     print(f"Expected: {expected_result}")
-#     print(f"Actual: {actual_result}")
-#     assert actual_result==expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
-#     assert actual_result == expected_result, f"Expected '{expected_result}', but got '{actual_result}'"
-#     print ("Test Passed:Code snippet created successfully")
-#     new_snippet.logout_button()
-#     print("Test Passed:Code snippet logout successfully")
 
-# def test_create_new_snippet_public(login,driver):
-#     new_snippet = CreateNewSnippet(driver)
-#     new_snippet.click_code_snippet()
-#     new_snippet.click_new_code_snippet()
-#     time.sleep(2)
-#     new_snippet.fill_snippet_form(
-#         title="Test Snippet",
-#         language="Python",
-#         description="This is a test description for the snippet.",
-#         code="print('Hello, World!')"
-#     )
-#     time.sleep(2)
-#     new_snippet.select_first_tag()
-#     new_snippet.create_code_snippet_button()
-#     time.sleep(5)
-#     expected_result = "Code snippet was successfully created."
-#     actual_result = new_snippet.success_msg()
-#     assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
-#     assert actual_result == expected_result, f"Expected '{expected_result}', but got '{actual_result}'"
-#     print("Test Passed:Code snippet created successfully")
-#     new_snippet.logout_button()
-#     print("Test Passed:Code snippet logout successfully")
-#
-def test_create_snippet_with_empty_field(login,driver):
-    new_snippet = CreateNewSnippet(driver)
-    new_snippet.click_code_snippet()
-    new_snippet.click_new_code_snippet()
+def test_create_new_snippet(login):
+    new_snippet = CreateNewSnippet(login)
+    # new_snippet.click_code_snippet()
+    # new_snippet.click_new_code_snippet()
+    new_snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/code_snippets/new")
+    new_snippet.fill_snippet_form(
+        title="Test ",
+        language="Python",
+        description="This is a test description for the snippet.",
+        code="print('Hello, World!')"
+    )
+    new_snippet.private_checkbox()
+    new_snippet.select_first_tag()
+    new_snippet.create_code_snippet_button()
+    time.sleep(2)
+
+    expected_result="Code snippet was successfully created."
+    actual_result=new_snippet.success_msg()
+    print(f"Expected: {expected_result}")
+    print(f"Actual: {actual_result}")
+    assert actual_result==expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
+    assert actual_result == expected_result, f"Expected '{expected_result}', but got '{actual_result}'"
+    print ("Test Passed:Code snippet created successfully")
+    # new_snippet.logout_button()
+    # print("Test Passed:Code snippet logout successfully")
+
+def test_create_new_snippet_public(login):
+    new_snippet = CreateNewSnippet(login)
+    # new_snippet.click_code_snippet()
+    # new_snippet.click_new_code_snippet()
+    new_snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/code_snippets/new")
+
+    time.sleep(2)
+    new_snippet.fill_snippet_form(
+        title="Test Snippet",
+        language="Python",
+        description="This is a test description for the snippet.",
+        code="print('Hello, World!')"
+    )
+    time.sleep(2)
+    new_snippet.select_first_tag()
+    new_snippet.create_code_snippet_button()
+    time.sleep(5)
+    expected_result = "Code snippet was successfully created."
+    actual_result = new_snippet.success_msg()
+    assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
+    assert actual_result == expected_result, f"Expected '{expected_result}', but got '{actual_result}'"
+    print("Test Passed:Code snippet created successfully")
+    # new_snippet.logout_button()
+    # print("Test Passed:Code snippet logout successfully")
+
+
+
+def test_create_snippet_with_empty_field(login):
+    new_snippet = CreateNewSnippet(login)
+    # new_snippet.click_code_snippet()
+    # new_snippet.click_new_code_snippet()
+    new_snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/code_snippets/new")
     new_snippet.fill_snippet_form(
         title="",
         language="",
@@ -302,11 +310,13 @@ def test_create_snippet_with_empty_field(login,driver):
     print("Test Passed:Code snippet logout successfully")
 
 
+
 #
 def test_create_snippet_without_title(login,driver):
     new_snippet = CreateNewSnippet(driver)
-    new_snippet.click_code_snippet()
-    new_snippet.click_new_code_snippet()
+    # new_snippet.click_code_snippet()
+    # new_snippet.click_new_code_snippet()
+    new_snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/code_snippets/new")
     time.sleep(5)
     new_snippet.fill_snippet_form(
         title="",
@@ -325,8 +335,9 @@ def test_create_snippet_without_title(login,driver):
 
 def test_create_snippet_without_language(login,driver):
     new_snippet = CreateNewSnippet(driver)
-    new_snippet.click_code_snippet()
-    new_snippet.click_new_code_snippet()
+    # new_snippet.click_code_snippet()
+    # new_snippet.click_new_code_snippet()
+    new_snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/code_snippets/new")
     new_snippet.fill_snippet_form(
         title="Test Snippet",
         language="",
@@ -341,14 +352,14 @@ def test_create_snippet_without_language(login,driver):
     actual_result = new_snippet.language_error_msg()
     assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
     print("Test Passed:language cant be blank:")
-    new_snippet.logout_button()
-    print("Test Passed:Code snippet logout successfully")
-#
-#
+
+
+
 def test_create_snippet_without_description(login,driver):
     new_snippet = CreateNewSnippet(driver)
-    new_snippet.click_code_snippet()
-    new_snippet.click_new_code_snippet()
+    # new_snippet.click_code_snippet()
+    # new_snippet.click_new_code_snippet()
+    new_snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/code_snippets/new")
     time.sleep(5)
     new_snippet.fill_snippet_form(
         title="Test Snippet",
@@ -366,8 +377,9 @@ def test_create_snippet_without_description(login,driver):
 
 def test_create_snippet_without_code(login,driver):
     new_snippet = CreateNewSnippet(driver)
-    new_snippet.click_code_snippet()
-    new_snippet.click_new_code_snippet()
+    # new_snippet.click_code_snippet()
+    # new_snippet.click_new_code_snippet()
+    new_snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/code_snippets/new")
     new_snippet.fill_snippet_form(
         title="Test Snippet",
         language="Python",
