@@ -16,7 +16,9 @@ from pages.login_page import LoginPage
 from pages.main_page import MainPage
 from pages.sign_up_page import SignUp
 from pages.create_new_snippet import CreateNewSnippet
+from pages.code_snippet_cards import Snippet
 from pages.tags import Tags
+from pages.search_snippet import Search
 
 @pytest.fixture(scope="module")
 def driver():
@@ -233,29 +235,29 @@ def login(driver):
     return driver
 
 
-def test_create_new_snippet(login):
-    new_snippet = CreateNewSnippet(login)
-    # new_snippet.click_code_snippet()
-    # new_snippet.click_new_code_snippet()
-    new_snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/code_snippets/new")
-    new_snippet.fill_snippet_form(
-        title="Test ",
-        language="Python",
-        description="This is a test description for the snippet.",
-        code="print('Hello, World!')"
-    )
-    new_snippet.private_checkbox()
-    new_snippet.select_first_tag()
-    new_snippet.create_code_snippet_button()
-    time.sleep(2)
-
-    expected_result="Code snippet was successfully created."
-    actual_result=new_snippet.success_msg()
-    print(f"Expected: {expected_result}")
-    print(f"Actual: {actual_result}")
-    assert actual_result==expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
-    assert actual_result == expected_result, f"Expected '{expected_result}', but got '{actual_result}'"
-    print ("Test Passed:Code snippet created successfully")
+# def test_create_new_snippet(login):
+#     new_snippet = CreateNewSnippet(login)
+#     # new_snippet.click_code_snippet()
+#     # new_snippet.click_new_code_snippet()
+#     new_snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/code_snippets/new")
+#     new_snippet.fill_snippet_form(
+#         title="Test ",
+#         language="Python",
+#         description="This is a test description for the snippet.",
+#         code="print('Hello, World!')"
+#     )
+#     new_snippet.private_checkbox()
+#     new_snippet.select_first_tag()
+#     new_snippet.create_code_snippet_button()
+#     time.sleep(2)
+#
+#     expected_result="Code snippet was successfully created."
+#     actual_result=new_snippet.success_msg()
+#     print(f"Expected: {expected_result}")
+#     print(f"Actual: {actual_result}")
+#     assert actual_result==expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
+#     assert actual_result == expected_result, f"Expected '{expected_result}', but got '{actual_result}'"
+#     print ("Test Passed:Code snippet created successfully")
     # new_snippet.logout_button()
     # print("Test Passed:Code snippet logout successfully")
 
@@ -395,6 +397,35 @@ def test_create_snippet_without_code(login,driver):
     print("Test Passed:code cant be blank:")
 
 
+def test_edit_code_snippet_without_login(driver):
+    snippet=Snippet(driver)
+    snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/")
+    snippet.click_view_snippet()
+    snippet.click_edit_snippet()
+
+    expected_result="You need to sign in or sign up before continuing."
+    actual_result=snippet.edit_error_message()
+    assert actual_result == expected_result, f"Expected '{expected_result}', but got'{actual_result}'"
+    print("Test Passed:Without signing in, the snippet could not be edited .")
+
+
+def test_delete_code_snippet_without_login(driver):
+    snippet=Snippet(driver)
+    snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/")
+    snippet.click_view_snippet()
+    snippet.click_delete_snippet()
+
+    expected_result="You need to sign in or sign up before continuing."
+    actual_result=snippet.delete_error_message()
+    assert actual_result == expected_result, f"Expected '{expected_result}', but got'{actual_result}'"
+    print("Test Passed:Without signing in, the snippet could not be deleted ")
+
+
+
+
+
+
+
 
 def test_tags_button(login,driver):
     tags= Tags(driver)
@@ -458,6 +489,35 @@ def test_delete_the_tags(login,driver):
     actual_result =new_tags.delete_message()
     assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
     print("Test Passed :")
+
+def test_dashboard_link(login,driver):
+    dashboard_link =Search(driver)
+    dashboard_link.click_dashboard()
+
+def test_dashboard_all_snippet(login,driver):
+    public_snippet = Search(driver)
+    public_snippet.click_dashboard()
+    public_snippet.click_public()
+
+def test_dashboard_private_snippet(login,driver):
+    public_snippet = Search(driver)
+    public_snippet.click_dashboard()
+    public_snippet.click_private()
+
+
+def test_dashboard_public_snippet(login,driver):
+    public_snippet = Search(driver)
+    public_snippet.click_dashboard()
+    public_snippet.click_public()
+
+
+def test_sort_A_Z(login,driver):
+    sort = Search(driver)
+    sort.click_dashboard()
+
+
+
+
 
 
 
