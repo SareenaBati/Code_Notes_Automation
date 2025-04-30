@@ -235,31 +235,31 @@ def login(driver):
     return driver
 
 
-# def test_create_new_snippet(login):
-#     new_snippet = CreateNewSnippet(login)
-#     # new_snippet.click_code_snippet()
-#     # new_snippet.click_new_code_snippet()
-#     new_snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/code_snippets/new")
-#     new_snippet.fill_snippet_form(
-#         title="Test ",
-#         language="Python",
-#         description="This is a test description for the snippet.",
-#         code="print('Hello, World!')"
-#     )
-#     new_snippet.private_checkbox()
-#     new_snippet.select_first_tag()
-#     new_snippet.create_code_snippet_button()
-#     time.sleep(2)
-#
-#     expected_result="Code snippet was successfully created."
-#     actual_result=new_snippet.success_msg()
-#     print(f"Expected: {expected_result}")
-#     print(f"Actual: {actual_result}")
-#     assert actual_result==expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
-#     assert actual_result == expected_result, f"Expected '{expected_result}', but got '{actual_result}'"
-#     print ("Test Passed:Code snippet created successfully")
-    # new_snippet.logout_button()
-    # print("Test Passed:Code snippet logout successfully")
+def test_create_new_snippet(login):
+    new_snippet = CreateNewSnippet(login)
+    # new_snippet.click_code_snippet()
+    # new_snippet.click_new_code_snippet()
+    new_snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/code_snippets/new")
+    new_snippet.fill_snippet_form(
+        title="Test ",
+        language="Python",
+        description="This is a test description for the snippet.",
+        code="print('Hello, World!')"
+    )
+    new_snippet.private_checkbox()
+    new_snippet.select_first_tag()
+    new_snippet.create_code_snippet_button()
+    time.sleep(2)
+
+    expected_result="Code snippet was successfully created."
+    actual_result=new_snippet.success_msg()
+    print(f"Expected: {expected_result}")
+    print(f"Actual: {actual_result}")
+    assert actual_result==expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
+    assert actual_result == expected_result, f"Expected '{expected_result}', but got '{actual_result}'"
+    print ("Test Passed:Code snippet created successfully")
+    new_snippet.logout_button()
+    print("Test Passed:Code snippet logout successfully")
 
 def test_create_new_snippet_public(login):
     new_snippet = CreateNewSnippet(login)
@@ -495,14 +495,14 @@ def test_dashboard_link(login,driver):
     dashboard_link.click_dashboard()
 
 def test_dashboard_all_snippet(login,driver):
-    public_snippet = Search(driver)
-    public_snippet.click_dashboard()
-    public_snippet.click_public()
+    all_snippet = Search(driver)
+    all_snippet.click_dashboard()
+    all_snippet.click_all_snippet()
 
 def test_dashboard_private_snippet(login,driver):
-    public_snippet = Search(driver)
-    public_snippet.click_dashboard()
-    public_snippet.click_private()
+    private_snippet = Search(driver)
+    private_snippet.click_dashboard()
+    private_snippet.click_private()
 
 
 def test_dashboard_public_snippet(login,driver):
@@ -514,6 +514,19 @@ def test_dashboard_public_snippet(login,driver):
 def test_sort_A_Z(login,driver):
     sort = Search(driver)
     sort.click_dashboard()
+
+    # sort.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/dashboard")
+    sort.click_all_snippet()
+    sort.click_sort_dropdown()
+    sort.select_a_z_sort("Sort:A-Z")
+    sort.click_apply_button()
+
+def test_sort_oldest(login,driver):
+    sort=Search(driver)
+    sort.click_dashboard()
+
+    sort.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/dashboard")
+
 
 
 
