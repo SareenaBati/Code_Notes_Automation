@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
   run-tests:
@@ -42,9 +41,3 @@ jobs:
       - name: Run Pytest and Generate HTML Report
         run: |
           pytest --html=report.html --self-contained-html
-
-      - name: Upload HTML Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-report
-          path: report.html
