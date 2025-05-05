@@ -22,7 +22,7 @@ jobs:
 
       - name: Run Tests (run_test.py)
         run: |
-          pytest tests/run_test.py --html=report.html --self-contained-html  # Ensure to point to run_test.py
+          pytest run_test.py --html=report.html --self-contained-html  # Ensure to point to run_test.py
 
       - name: Upload Pytest HTML Report
         uses: actions/upload-artifact@v4
