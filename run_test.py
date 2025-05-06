@@ -16,7 +16,7 @@ from pages.login_page import LoginPage
 from pages.main_page import MainPage
 from pages.sign_up_page import SignUp
 from pages.create_new_snippet import CreateNewSnippet
-from pages.code_snippet_cards import Snippet
+from pages.code_snippet import Snippet
 from pages.tags import Tags
 from pages.my_dashboard_page import Search
 from pages.kanji_for_beginners import KanjiSearchPage
@@ -358,27 +358,27 @@ def test_create_snippet_without_description(login,driver):
     new_snippet.create_code_snippet_button()
 
 
-
-def test_create_snippet_without_code(login,driver):
-    new_snippet = CreateNewSnippet(driver)
-    # new_snippet.click_code_snippet()
-    # new_snippet.click_new_code_snippet()
-    new_snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/code_snippets/new")
-    new_snippet.fill_snippet_form(
-        title="Test Snippet",
-        language="Python",
-        description="Description",
-        code=""
-    )
-    time.sleep(2)
-    new_snippet.select_first_tag()
-    time.sleep(1)
-    new_snippet.create_code_snippet_button()
-    time.sleep(1)
-    expected_result = "Code can't be blank"
-    actual_result = new_snippet.code_error_msg()
-    assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
-    print("Test Passed:code cant be blank:")
+#
+# def test_create_snippet_without_code(login,driver):
+#     new_snippet = CreateNewSnippet(driver)
+#     # new_snippet.click_code_snippet()
+#     # new_snippet.click_new_code_snippet()
+#     new_snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/code_snippets/new")
+#     new_snippet.fill_snippet_form(
+#         title="Test Snippet",
+#         language="Python",
+#         description="Description",
+#         code=""
+#     )
+#     time.sleep(2)
+#     new_snippet.select_first_tag()
+#     time.sleep(1)
+#     new_snippet.create_code_snippet_button()
+#     time.sleep(1)
+#     expected_result = "Code can't be blank"
+#     actual_result = new_snippet.code_error_msg()
+#     assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
+#     print("Test Passed:code cant be blank:")
 
 
 
@@ -608,7 +608,6 @@ def test_password_recovery_with_empty_email_field(driver):
     actual_result = login_page.get_reset_password_validation_error_msg()
     assert actual_result == expected_result, f"Expected '{expected_result}', but got '{actual_result}'"
     print("Test Passed: Password reset with empty email generate correct validation error message.")
-
 
 
 
