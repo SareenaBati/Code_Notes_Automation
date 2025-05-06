@@ -38,9 +38,9 @@ class Tags:
         self.driver.execute_script("arguments[0].click();",create_button)
 
     def success_message(self):
-        message=self.wait.until(EC.presence_of_element_located(TagsLocator.SUCCESS_MESSAGE))
-        text=self.driver.execute_script("arguments[0].textContent",message)
-        return text
+        message = self.wait.until(EC.presence_of_element_located(TagsLocator.SUCCESS_MESSAGE))
+        text = self.driver.execute_script("return arguments[0].textContent", message)
+        return text.strip()
 
     def click_edit_button(self):
         edit_button=self.wait.until(EC.presence_of_element_located(TagsLocator.EDIT_BUTTON))
