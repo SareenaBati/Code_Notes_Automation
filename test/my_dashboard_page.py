@@ -7,18 +7,15 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 import time
-
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from pages.login_page import LoginPage
-from pages.main_page import MainPage
-from pages.sign_up_page import SignUp
-from pages.create_new_snippet import CreateNewSnippet
-from pages.code_snippet_cards import Snippet
-from pages.tags import Tags
-from pages.search_snippet import Search
+from pages.my_dashboard_page import Search
+
+
+
 
 @pytest.fixture(scope="module")
 def driver():
@@ -33,6 +30,7 @@ def driver():
     driver.implicitly_wait(10)
     yield driver
     driver.quit()
+
 
 @pytest.fixture(scope="module")
 def login(driver):
@@ -82,6 +80,3 @@ def test_sort_oldest(login,driver):
     sort.click_dashboard()
 
     sort.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/dashboard")
-
-
-

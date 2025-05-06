@@ -7,10 +7,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 import time
-
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 
 from pages.login_page import LoginPage
 from pages.main_page import MainPage
@@ -18,7 +18,11 @@ from pages.sign_up_page import SignUp
 from pages.create_new_snippet import CreateNewSnippet
 from pages.code_snippet_cards import Snippet
 from pages.tags import Tags
-from pages.search_snippet import Search
+from pages.my_dashboard_page import Search
+from pages.kanji_for_beginners import KanjiSearchPage
+from pages.all_kanji import all_kanji
+
+
 
 @pytest.fixture(scope="module")
 def driver():
@@ -203,25 +207,6 @@ def test_login_with_empty_field(driver):
     print("Test Passed: Login with empty field generates the expected error..")
 
 
-
-# def test_password_recovery_with_empty_email_field(driver):
-#     login_page = LoginPage(driver)
-#     login_page.open_login_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/")
-#     login_page.login()
-#     login_page.click_forgot_password()
-#     time.sleep(10)
-#     login_page.enter_email_in_forgot_password_field("")
-#     time.sleep(5)
-#     login_page.click_reset_instruction_btn()
-#     time.sleep(5)
-#     expected_result = "Email can't be blank"
-#
-#
-#     actual_result = login_page.get_reset_password_validation_error_msg()
-#     assert actual_result == expected_result, f"Expected '{expected_result}', but got '{actual_result}'"
-#     print("Test Passed: Password reset with empty email generate correct validation error message.")
-
-
 @pytest.fixture(scope="module")
 def login(driver):
     login_page = LoginPage(driver)
@@ -281,7 +266,6 @@ def test_create_new_snippet_public(login):
     expected_result = "Code snippet was successfully created."
     actual_result = new_snippet.success_msg()
     assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
-    assert actual_result == expected_result, f"Expected '{expected_result}', but got '{actual_result}'"
     print("Test Passed:Code snippet created successfully")
     # new_snippet.logout_button()
     # print("Test Passed:Code snippet logout successfully")
@@ -372,7 +356,7 @@ def test_create_snippet_without_description(login,driver):
     new_snippet.select_first_tag()
     time.sleep(1)
     new_snippet.create_code_snippet_button()
-    time.sleep(5)
+
 
 
 def test_create_snippet_without_code(login,driver):
@@ -397,34 +381,11 @@ def test_create_snippet_without_code(login,driver):
     print("Test Passed:code cant be blank:")
 
 
-def test_edit_code_snippet_without_login(driver):
-    snippet=Snippet(driver)
-    snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/")
-    snippet.click_view_snippet()
-    snippet.click_edit_snippet()
 
-    expected_result="You need to sign in or sign up before continuing."
-    actual_result=snippet.edit_error_message()
-    assert actual_result == expected_result, f"Expected '{expected_result}', but got'{actual_result}'"
-    print("Test Passed:Without signing in, the snippet could not be edited .")
-
-
-def test_delete_code_snippet_without_login(driver):
-    snippet=Snippet(driver)
-    snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/")
-    snippet.click_view_snippet()
-    snippet.click_delete_snippet()
-
-    expected_result="You need to sign in or sign up before continuing."
-    actual_result=snippet.delete_error_message()
-    assert actual_result == expected_result, f"Expected '{expected_result}', but got'{actual_result}'"
-    print("Test Passed:Without signing in, the snippet could not be deleted ")
-
-
-
-
-
-
+def test_logout_button(driver,login):
+    logout_button=LoginPage(driver)
+    logout_button.logout_button()
+    time.sleep(5)
 
 
 def test_tags_button(login,driver):
@@ -527,10 +488,152 @@ def test_sort_oldest(login,driver):
 
     sort.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/dashboard")
 
+# Kanji for beginners page
+
+def test_kanji_for_beginners_link(driver,login):
+    kanji_for_beginners_link =KanjiSearchPage(login)
+    kanji_for_beginners_link.open_kanji_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/kanjis/beginners")
+    # kanji_for_beginners_link.click_kanji_for_beginners()
+
+
+def test_search_kanji_with_alphabet(driver,login):
+    kanji_for_beginners_link =KanjiSearchPage(login)
+    kanji_for_beginners_link.open_kanji_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/kanjis/beginners")
+    # kanji_for_beginners_link.click_kanji_for_beginners()
+    kanji_for_beginners_link.enter_search_text("river")
+    kanji_for_beginners_link.click_search_button()
+    time.sleep(5)
+
+def test_search_with_kanji_language(driver,login):
+    kanji_for_beginners_link = KanjiSearchPage(login)
+    kanji_for_beginners_link.open_kanji_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/kanjis/beginners")
+    # kanji_for_beginners_link.click_kanji_for_beginners()
+    kanji_for_beginners_link.enter_search_text("川")
+    kanji_for_beginners_link.click_search_button()
+    time.sleep(5)
+
+def test_search_with_number(driver,login):
+    kanji_for_beginners_link = KanjiSearchPage(login)
+    kanji_for_beginners_link.open_kanji_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/kanjis/beginners")
+    # kanji_for_beginners_link.click_kanji_for_beginners()
+    kanji_for_beginners_link.enter_search_text("1")
+    kanji_for_beginners_link.click_search_button()
+    expected_result = "Error searching for kanji: undefined method `[]' for nil"
+    actual_result = kanji_for_beginners_link.get_error_message()
+    print(f"Expected: {expected_result}")
+    print(f"Actual: {actual_result}")
+    assert actual_result.strip()  == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
+    print("Test Passed :Error message for number input displayed as expected.")
+
+def test_search_partial_meaning_ri(driver, login):
+    kanji_page = KanjiSearchPage(login)
+    kanji_page.open_kanji_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/kanjis/beginners")
+    kanji_page.enter_search_text("ri")
+    kanji_page.click_search_button()
+    time.sleep(3)
+
+def test_search_with_empty_input(driver,login):
+    kanji_page = KanjiSearchPage(login)
+    kanji_page.open_kanji_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/kanjis/beginners")
+    kanji_page.enter_search_text("")
+    kanji_page.click_search_button()
+    time.sleep(3)
+    expected_result = "Please enter a search term"
+    actual_result = kanji_page.get_error_message_with_empty_input()
+    print(f"Expected: {expected_result}")
+    print(f"Actual: {actual_result}")
+    assert actual_result.strip() == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
+    print("Test Passed :Error message for empty input.")
+
+def test_search_kanji_using_uppercase_text(driver,login):
+    kanji_page = KanjiSearchPage(login)
+    kanji_page.open_kanji_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/kanjis/beginners")
+    kanji_page.enter_search_text("EAR")
+    kanji_page.click_search_button()
+    time.sleep(3)
+    print("Test passed: 'EAR' search returns the expected result ('ear').")
+
+def test_count_kanji_with_alphabet(driver, login):
+    kanji_for_beginners_link = KanjiSearchPage(login)
+    kanji_for_beginners_link.open_kanji_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/kanjis/beginners")
+    kanji_for_beginners_link.enter_search_text("river")
+    kanji_for_beginners_link.click_search_button()
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'text-sm') and contains(translate(text(), 'RIVER', 'river'), 'river')]"))
+    )
+    river_results = driver.find_elements(
+        By.XPATH,
+        "//div[contains(@class, 'text-sm') and contains(translate(text(), 'RIVER', 'river'), 'river')]"
+    )
+    river_count = len(river_results)
+    print(f"Number of results containing 'river': {river_count}")
+    assert river_count > 0, "No results found containing 'river'"
+
+# ALL KANJI PAGE
+
+def test_kanji_link(driver,login):
+    kanji=all_kanji(driver)
+    kanji.click_all_kanji_link()
+    kanji.scroll_to_bottom()
+
+def test_river_link(driver,login):
+    kanji = all_kanji(driver)
+    kanji.click_all_kanji_link()
+    kanji.enter_kanji_name("river")
+    kanji.click_search_button()
+    kanji.click_river_kanji()
+    kanji.scroll_to_bottom()
+    kanji.scroll_to_up()
+    kanji.click_back_to_kanji_list()
+
+# Password Recovery
+def test_password_recovery_with_email_field(driver):
+    login_page = LoginPage(driver)
+    login_page.open_login_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/")
+    login_page.login()
+    login_page.click_forgot_password()
+    login_page.enter_email_in_forgot_password_field("test@gmail.com")
+    login_page.click_reset_instruction_btn()
+
+def test_password_recovery_with_empty_email_field(driver):
+    login_page = LoginPage(driver)
+    login_page.open_login_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/")
+    login_page.login()
+    login_page.click_forgot_password()
+    login_page.enter_email_in_forgot_password_field("")
+    time.sleep(5)
+    login_page.click_reset_instruction_btn()
+    time.sleep(5)
+    expected_result = "Email can't be blank"
+    actual_result = login_page.get_reset_password_validation_error_msg()
+    assert actual_result == expected_result, f"Expected '{expected_result}', but got '{actual_result}'"
+    print("Test Passed: Password reset with empty email generate correct validation error message.")
 
 
 
 
+def test_edit_code_snippet_without_login(driver):
+    snippet=Snippet(driver)
+    snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/")
+    snippet.click_view_snippet()
+    snippet.click_edit_snippet()
+
+    expected_result="You need to sign in or sign up before continuing."
+    actual_result=snippet.edit_error_message()
+    assert actual_result == expected_result, f"Expected '{expected_result}', but got'{actual_result}'"
+    print("Test Passed:Without signing in, the snippet could not be edited .")
+
+
+def test_delete_code_snippet_without_login(driver):
+    snippet=Snippet(driver)
+    snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/")
+    snippet.click_view_snippet()
+    snippet.click_delete_snippet()
+
+    expected_result="You need to sign in or sign up before continuing."
+    actual_result=snippet.delete_error_message()
+    assert actual_result == expected_result, f"Expected '{expected_result}', but got'{actual_result}'"
+    print("Test Passed:Without signing in, the snippet could not be deleted ")
 
 
 

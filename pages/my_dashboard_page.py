@@ -71,10 +71,11 @@ class Search:
         self.driver.execute_script("arguments[0].click();", element)
 
     def enter_search_text(self, text):
-        element = WebDriverWait(self.driver, 10).until(
+        enter_text = WebDriverWait(self.driver, 10).until(
             EC.presence_of_element_located(SEARCH.SEARCH_BOX)
         )
-        self.driver.execute_script("arguments[0].value = arguments[1];", element, text)
+        self.driver.execute_script("arguments[0].value = arguments[1];", enter_text, text)
+
 
     def click_language_dropdown(self):
         element = WebDriverWait(self.driver, 10).until(

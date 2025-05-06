@@ -17,3 +17,4 @@ def driver():
     driver.get("https://ns-code-snippet-9eae23357ebe.herokuapp.com/")
     yield driver
     driver.quit()
+
