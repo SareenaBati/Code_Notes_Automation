@@ -1,4 +1,4 @@
-name: Run Pytest
+name: Run Pytest with Video and HTML Report
 
 on: [push, pull_request]
 
@@ -17,13 +17,41 @@ jobs:
 
       - name: Install dependencies
         run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb ffmpeg
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+
+      - name: Start virtual display
+        run: |
+          Xvfb :99 -screen 0 1280x720x24 > /dev/null 2>&1 &
+          echo "DISPLAY=:99" >> $GITHUB_ENV
+
+      - name: Start screen recording
+        run: |
+          ffmpeg -y -video_size 1280x720 -framerate 25 -f x11grab -i :99.0 output.mp4 &
+          echo $! > ffmpeg_pid.txt
+
       - name: Run Pytest and Generate HTML Report
         run: |
           pytest --html=report.html --self-contained-html
+
+      - name: Stop screen recording
+        if: always()
+        run: |
+          kill -INT $(cat ffmpeg_pid.txt) || true
+          sleep 5
+
       - name: Upload HTML Report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: pytest-report
           path: report.html
+
+      - name: Upload Video Recording
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selenium-test-video
+          path: output.mp4
