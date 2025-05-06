@@ -27,11 +27,11 @@ from pages.all_kanji import all_kanji
 @pytest.fixture(scope="module")
 def driver():
     options = Options()
-    # options.add_argument('--headless=new')  # Use new headless mode for better compatibility
-    # options.add_argument('--no-sandbox')
-    # options.add_argument('--disable-dev-shm-usage')
-    # options.add_argument('--disable-gpu')
-    # options.add_argument('--window-size=1920,1080')  # Instead of maximize_window()
+    options.add_argument('--headless=new')  # Use new headless mode for better compatibility
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--disable-gpu')
+    options.add_argument('--window-size=1920,1080')  # Instead of maximize_window()
 
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
     driver.implicitly_wait(10)
