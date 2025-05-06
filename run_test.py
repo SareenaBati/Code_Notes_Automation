@@ -536,7 +536,7 @@ def test_create_new_tag(login,driver):
     new_tags.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/tags")
     new_tags.click_new_tags()
     time.sleep(2)
-    new_tags.enter_tag_name("NothTags")
+    new_tags.enter_tag_name("NothsTags")
     new_tags.click_create_button()
     time.sleep(2)
     expected_result="Tag was successfully created."
@@ -592,9 +592,9 @@ def test_delete_the_tags(login,driver):
     assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
     print("Test Passed :")
 
-# def test_dashboard_link(login,driver):
-#     dashboard_link =Search(driver)
-#     dashboard_link.click_dashboard()
+def test_dashboard_link(login,driver):
+    dashboard_link =Search(driver)
+    dashboard_link.click_dashboard()
 #
 # def test_dashboard_all_snippet(login,driver):
 #     all_snippet = Search(driver)
