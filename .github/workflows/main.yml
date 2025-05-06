@@ -35,6 +35,6 @@ jobs:
       - name: Add current directory to PYTHONPATH
         run: echo "PYTHONPATH=${{ github.workspace }}" >> $GITHUB_ENV
 
-      - name: Run Pytest
-        run: pytest
+      - name: Run tests
+        run: python run_test.py
 

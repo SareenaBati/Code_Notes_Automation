@@ -2,7 +2,7 @@ from selenium.webdriver.common.by import By
 import time
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
-from locators.code_snippet_cards import SNIPPET
+from locators.code_snippet import SNIPPET
 
 
 
