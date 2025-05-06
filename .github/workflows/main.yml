@@ -26,11 +26,11 @@ jobs:
         run: |
           Xvfb :99 -screen 0 1280x720x24 > /dev/null 2>&1 &
           echo "DISPLAY=:99" >> $GITHUB_ENV
-          sleep 3
+          sleep 5  # Increased the sleep time for better setup
 
       - name: Start screen recording
         run: |
-          ffmpeg -y -video_size 1280x720 -framerate 25 -f x11grab -i :99.0 -c:v libx264 -preset ultrafast -pix_fmt yuv420p output.mp4 > /dev/null 2>&1 &
+          ffmpeg -y -video_size 1280x720 -framerate 25 -f x11grab -i :99.0 -c:v libx264 -preset ultrafast -pix_fmt yuv420p output.mp4 > ffmpeg_log.txt 2>&1 &
           echo $! > ffmpeg_pid.txt
           sleep 2
 
