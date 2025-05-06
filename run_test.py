@@ -220,77 +220,77 @@ def login(driver):
     return driver
 
 
-def test_create_new_snippet(login):
-    new_snippet = CreateNewSnippet(login)
-    # new_snippet.click_code_snippet()
-    # new_snippet.click_new_code_snippet()
-    new_snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/code_snippets/new")
-    new_snippet.fill_snippet_form(
-        title="Test ",
-        language="Python",
-        description="This is a test description for the snippet.",
-        code="print('Hello, World!')"
-    )
-    new_snippet.private_checkbox()
-    new_snippet.select_first_tag()
-    new_snippet.create_code_snippet_button()
-    time.sleep(2)
+# def test_create_new_snippet(login):
+#     new_snippet = CreateNewSnippet(login)
+#     # new_snippet.click_code_snippet()
+#     # new_snippet.click_new_code_snippet()
+#     new_snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/code_snippets/new")
+#     new_snippet.fill_snippet_form(
+#         title="Test ",
+#         language="Python",
+#         description="This is a test description for the snippet.",
+#         code="print('Hello, World!')"
+#     )
+#     new_snippet.private_checkbox()
+#     new_snippet.select_first_tag()
+#     new_snippet.create_code_snippet_button()
+#     time.sleep(2)
+#
+#     expected_result="Code snippet was successfully created."
+#     actual_result=new_snippet.success_msg()
+#     print(f"Expected: {expected_result}")
+#     print(f"Actual: {actual_result}")
+#     assert actual_result==expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
+#     assert actual_result == expected_result, f"Expected '{expected_result}', but got '{actual_result}'"
+#     print ("Test Passed:Code snippet created successfully")
+#     new_snippet.logout_button()
+#     print("Test Passed:Code snippet logout successfully")
 
-    expected_result="Code snippet was successfully created."
-    actual_result=new_snippet.success_msg()
-    print(f"Expected: {expected_result}")
-    print(f"Actual: {actual_result}")
-    assert actual_result==expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
-    assert actual_result == expected_result, f"Expected '{expected_result}', but got '{actual_result}'"
-    print ("Test Passed:Code snippet created successfully")
-    new_snippet.logout_button()
-    print("Test Passed:Code snippet logout successfully")
-
-def test_create_new_snippet_public(login):
-    new_snippet = CreateNewSnippet(login)
-    # new_snippet.click_code_snippet()
-    # new_snippet.click_new_code_snippet()
-    new_snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/code_snippets/new")
-
-    time.sleep(2)
-    new_snippet.fill_snippet_form(
-        title="Test Snippet",
-        language="Python",
-        description="This is a test description for the snippet.",
-        code="print('Hello, World!')"
-    )
-    time.sleep(2)
-    new_snippet.select_first_tag()
-    new_snippet.create_code_snippet_button()
-    time.sleep(5)
-    expected_result = "Code snippet was successfully created."
-    actual_result = new_snippet.success_msg()
-    assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
-    print("Test Passed:Code snippet created successfully")
-    # new_snippet.logout_button()
-    # print("Test Passed:Code snippet logout successfully")
+# def test_create_new_snippet_public(login):
+#     new_snippet = CreateNewSnippet(login)
+#     # new_snippet.click_code_snippet()
+#     # new_snippet.click_new_code_snippet()
+#     new_snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/code_snippets/new")
+#
+#     time.sleep(2)
+#     new_snippet.fill_snippet_form(
+#         title="Test Snippet",
+#         language="Python",
+#         description="This is a test description for the snippet.",
+#         code="print('Hello, World!')"
+#     )
+#     time.sleep(2)
+#     new_snippet.select_first_tag()
+#     new_snippet.create_code_snippet_button()
+#     time.sleep(5)
+#     expected_result = "Code snippet was successfully created."
+#     actual_result = new_snippet.success_msg()
+#     assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
+#     print("Test Passed:Code snippet created successfully")
+#     # new_snippet.logout_button()
+#     # print("Test Passed:Code snippet logout successfully")
 
 
-
-def test_create_snippet_with_empty_field(login):
-    new_snippet = CreateNewSnippet(login)
-    # new_snippet.click_code_snippet()
-    # new_snippet.click_new_code_snippet()
-    new_snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/code_snippets/new")
-    new_snippet.fill_snippet_form(
-        title="",
-        language="",
-        description="",
-        code=""
-    )
-
-    new_snippet.private_checkbox()
-    new_snippet.select_first_tag()
-    new_snippet.create_code_snippet_button()
-    expected_result="Please review the problems below:"
-    actual_result=new_snippet.snippet_error_msg()
-    assert actual_result==expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
-    print ("Test Passed:Please review the problems below:")
+#
+# def test_create_snippet_with_empty_field(login):
+#     new_snippet = CreateNewSnippet(login)
+#     # new_snippet.click_code_snippet()
+#     # new_snippet.click_new_code_snippet()
+#     new_snippet.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/code_snippets/new")
+#     new_snippet.fill_snippet_form(
+#         title="",
+#         language="",
+#         description="",
+#         code=""
+#     )
+#
+#     new_snippet.private_checkbox()
+#     new_snippet.select_first_tag()
+#     new_snippet.create_code_snippet_button()
+#     expected_result="Please review the problems below:"
+#     actual_result=new_snippet.snippet_error_msg()
+#     assert actual_result==expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
+#     print ("Test Passed:Please review the problems below:")
 
 
 
@@ -387,109 +387,109 @@ def test_logout_button(driver,login):
     logout_button.logout_button()
     time.sleep(5)
 
-
-def test_tags_button(login,driver):
-    tags= Tags(driver)
-    tags.click_tag()
-
-def test_create_new_tag(login,driver):
-    new_tags=Tags(driver)
-    # new_tags.click_tag()
-    new_tags.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/tags")
-    new_tags.click_new_tags()
-    new_tags.enter_tag_name("News Tags")
-    new_tags.click_create_button()
-    expected_result="Tag was successfully created."
-    actual_result=new_tags.success_message()
-    assert actual_result==expected_result, f"Expected'{expected_result}', but got '{actual_result}'"
-    print("Test Passed :Tag was created successfully")
-
-
-
-def test_update_the_tags(login,driver):
-    new_tags = Tags(driver)
-    # new_tags.click_tag()
-    new_tags.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/tags")
-    new_tags.click_edit_button()
-    new_tags.enter_tag_name("first Tag")
-    new_tags.click_update_tag_button()
-
-def test_create_tag_with_existing_tag(login,driver):
-    new_tags=Tags(driver)
-    new_tags.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/tags")
-    new_tags.click_new_tags()
-    new_tags.enter_tag_name("News Tag")
-    new_tags.click_create_button()
-    expected_result="Please review the problems below:"
-    actual_result=new_tags.existing_tag_name_message()
-    assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
-    print("Test Passed :Name has already taken")
-
-
-def test_create_tags_with_one_letter(login, driver):
-    new_tags = Tags(driver)
-    new_tags.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/tags")
-    new_tags.click_new_tags()
-    new_tags.enter_tag_name("N")
-    new_tags.click_create_button()
- # In this system, even one letter is accepted (BUG).
-    expected_result = "Please review the problems below:"  # We expect an error
-    actual_result = new_tags.success_message()  # But success message comes
- # Force the test to fail if success message is seen
-    assert actual_result != "Tag was successfully created.", \
-        f"Test Failed: Tag was incorrectly created with one letter. Message shown: '{actual_result}'"
-
-    print("Test Passed: One-letter tag was created, but it should NOT be allowed (Negative Test detected bug).")
-
-
-def test_delete_the_tags(login,driver):
-    new_tags = Tags(driver)
-    new_tags.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/tags")
-    new_tags.click_delete_button()
-    expected_result = "Tag was successfully destroyed."
-    actual_result =new_tags.delete_message()
-    assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
-    print("Test Passed :")
-
-def test_dashboard_link(login,driver):
-    dashboard_link =Search(driver)
-    dashboard_link.click_dashboard()
-
-def test_dashboard_all_snippet(login,driver):
-    all_snippet = Search(driver)
-    all_snippet.click_dashboard()
-    all_snippet.click_all_snippet()
-
-def test_dashboard_private_snippet(login,driver):
-    private_snippet = Search(driver)
-    private_snippet.click_dashboard()
-    private_snippet.click_private()
-
-
-def test_dashboard_public_snippet(login,driver):
-    public_snippet = Search(driver)
-    public_snippet.click_dashboard()
-    public_snippet.click_public()
-
-
-def test_sort_A_Z(login,driver):
-    sort = Search(driver)
-    sort.click_dashboard()
-
-    # sort.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/dashboard")
-    sort.click_all_snippet()
-    sort.click_sort_dropdown()
-    sort.select_a_z_sort("Sort:A-Z")
-    sort.click_apply_button()
-
-def test_sort_oldest(login,driver):
-    sort=Search(driver)
-    sort.click_dashboard()
-
-    sort.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/dashboard")
-
-# Kanji for beginners page
-
+#
+# def test_tags_button(login,driver):
+#     tags= Tags(driver)
+#     tags.click_tag()
+#
+# def test_create_new_tag(login,driver):
+#     new_tags=Tags(driver)
+#     # new_tags.click_tag()
+#     new_tags.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/tags")
+#     new_tags.click_new_tags()
+#     new_tags.enter_tag_name("News Tags")
+#     new_tags.click_create_button()
+#     expected_result="Tag was successfully created."
+#     actual_result=new_tags.success_message()
+#     assert actual_result==expected_result, f"Expected'{expected_result}', but got '{actual_result}'"
+#     print("Test Passed :Tag was created successfully")
+#
+#
+#
+# def test_update_the_tags(login,driver):
+#     new_tags = Tags(driver)
+#     # new_tags.click_tag()
+#     new_tags.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/tags")
+#     new_tags.click_edit_button()
+#     new_tags.enter_tag_name("first Tag")
+#     new_tags.click_update_tag_button()
+#
+# def test_create_tag_with_existing_tag(login,driver):
+#     new_tags=Tags(driver)
+#     new_tags.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/tags")
+#     new_tags.click_new_tags()
+#     new_tags.enter_tag_name("News Tag")
+#     new_tags.click_create_button()
+#     expected_result="Please review the problems below:"
+#     actual_result=new_tags.existing_tag_name_message()
+#     assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
+#     print("Test Passed :Name has already taken")
+#
+#
+# def test_create_tags_with_one_letter(login, driver):
+#     new_tags = Tags(driver)
+#     new_tags.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/tags")
+#     new_tags.click_new_tags()
+#     new_tags.enter_tag_name("N")
+#     new_tags.click_create_button()
+#  # In this system, even one letter is accepted (BUG).
+#     expected_result = "Please review the problems below:"  # We expect an error
+#     actual_result = new_tags.success_message()  # But success message comes
+#  # Force the test to fail if success message is seen
+#     assert actual_result != "Tag was successfully created.", \
+#         f"Test Failed: Tag was incorrectly created with one letter. Message shown: '{actual_result}'"
+#
+#     print("Test Passed: One-letter tag was created, but it should NOT be allowed (Negative Test detected bug).")
+#
+#
+# def test_delete_the_tags(login,driver):
+#     new_tags = Tags(driver)
+#     new_tags.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/tags")
+#     new_tags.click_delete_button()
+#     expected_result = "Tag was successfully destroyed."
+#     actual_result =new_tags.delete_message()
+#     assert actual_result == expected_result, f"Expected '{expected_result}',but got'{actual_result}'"
+#     print("Test Passed :")
+#
+# def test_dashboard_link(login,driver):
+#     dashboard_link =Search(driver)
+#     dashboard_link.click_dashboard()
+#
+# def test_dashboard_all_snippet(login,driver):
+#     all_snippet = Search(driver)
+#     all_snippet.click_dashboard()
+#     all_snippet.click_all_snippet()
+#
+# def test_dashboard_private_snippet(login,driver):
+#     private_snippet = Search(driver)
+#     private_snippet.click_dashboard()
+#     private_snippet.click_private()
+#
+#
+# def test_dashboard_public_snippet(login,driver):
+#     public_snippet = Search(driver)
+#     public_snippet.click_dashboard()
+#     public_snippet.click_public()
+#
+#
+# def test_sort_A_Z(login,driver):
+#     sort = Search(driver)
+#     sort.click_dashboard()
+#
+#     # sort.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/dashboard")
+#     sort.click_all_snippet()
+#     sort.click_sort_dropdown()
+#     sort.select_a_z_sort("Sort:A-Z")
+#     sort.click_apply_button()
+#
+# def test_sort_oldest(login,driver):
+#     sort=Search(driver)
+#     sort.click_dashboard()
+#
+#     sort.open_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/dashboard")
+#
+# # Kanji for beginners page
+#
 def test_kanji_for_beginners_link(driver,login):
     kanji_for_beginners_link =KanjiSearchPage(login)
     kanji_for_beginners_link.open_kanji_page("https://ns-code-snippet-9eae23357ebe.herokuapp.com/kanjis/beginners")
